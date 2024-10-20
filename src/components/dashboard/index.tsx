@@ -2,7 +2,7 @@ import { BlockStack, Card, InlineGrid, Text } from "@shopify/polaris";
 
 import visitStats from "~/data/visit_stats2.json";
 
-import { prettyNumber } from "~/utilities/number";
+import { prettyNumber } from "~/utilities/format";
 
 export function Dashboard() {
   const aggregateStats = visitStats.reduce((acc, curr) => {
