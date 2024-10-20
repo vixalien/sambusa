@@ -1,11 +1,13 @@
 "use client";
 
-import { Card, Page } from "@shopify/polaris";
+import { Page } from "@shopify/polaris";
+
+import { Dashboard } from "~/components/dashboard";
 
 export default function Home() {
   return (
     <Page title="Dashboard">
-      <Card></Card>
+      <Dashboard />
     </Page>
   );
 }
