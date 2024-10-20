@@ -1,12 +1,18 @@
 import { TopBar } from "@shopify/polaris";
 import { useState } from "react";
 
-export function AppTopBar() {
+export interface AppTopBarProps {
+  onNavigationToggle: () => void;
+}
+
+export function AppTopBar({ onNavigationToggle }: AppTopBarProps) {
   const [isOpen, setOpen] = useState(false);
   const toggleOpen = () => setOpen((open) => !open);
 
   return (
     <TopBar
+      showNavigationToggle
+      onNavigationToggle={onNavigationToggle}
       userMenu={
         <TopBar.UserMenu
           actions={[

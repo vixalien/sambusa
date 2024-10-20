@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@shopify/polaris": "^13.9.0",
+    "@shopify/polaris-icons": "^9.3.0",
     "@shopify/polaris-viz": "^15.0.7",
     "next": "14.2.15",
     "react": "^18",
