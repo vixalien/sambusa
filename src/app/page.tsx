@@ -1,13 +1,11 @@
-import { AppFrame } from "~/components/frame";
+"use client";
 
-import styles from "./page.module.css";
+import { Card, Page } from "@shopify/polaris";
 
 export default function Home() {
   return (
-    <AppFrame>
-      <div className={styles.page}>
-        hello
-      </div>
-    </AppFrame>
+    <Page title="Dashboard">
+      <Card></Card>
+    </Page>
   );
 }

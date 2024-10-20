@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-// import "./globals.css";
-import '@shopify/polaris/build/esm/styles.css';
+import "@shopify/polaris/build/esm/styles.css";
+import "./globals.css";
+
+import { AppFrame } from "~/components/frame";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <AppFrame>
+          {children}
+        </AppFrame>
       </body>
     </html>
   );
