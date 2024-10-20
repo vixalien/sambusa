@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "@shopify/polaris/build/esm/styles.css";
+import '@shopify/polaris-viz/build/esm/styles.css';
+
 import "./globals.css";
 import { AppLayout } from "~/components/layout";
 
