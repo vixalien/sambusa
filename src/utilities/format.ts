@@ -22,12 +22,12 @@ export function prettyString(val: unknown) {
 }
 
 /**
- * Converts a date into a legible month year format
+ * Converts a date into a legible date month format
  */
-export function prettyMonthDate(value: unknown) {
+export function prettyDate(value: unknown) {
   if (isNaN(new Date(value as number).getTime())) return "";
   return new Date(value as Date).toLocaleString("default", {
-    month: "long",
-    year: "numeric",
+    day: "numeric",
+    month: "numeric",
   });
 }

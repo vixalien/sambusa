@@ -1,19 +1,22 @@
 import { BlockStack, Card, InlineGrid, Text } from "@shopify/polaris";
 
-import visitStats from "~/data/visit_stats2.json";
-
+import { getLastMonthData } from "~/utilities/date";
 import { prettyNumber } from "~/utilities/format";
 
+import visitStats from "~/data/visit_stats2.json";
+
 export function Dashboard() {
-  const aggregateStats = visitStats.reduce((acc, curr) => {
-    return {
-      total_visitors: acc.total_visitors + curr.unique_visitors,
-      avg_bounce_rate: acc.avg_bounce_rate +
-        curr.bounce_rate / visitStats.length,
-      avg_session_duration: acc.avg_session_duration +
-        curr.avg_session_duration / visitStats.length,
-    };
-  }, { total_visitors: 0, avg_bounce_rate: 0, avg_session_duration: 0 });
+  const lastMonthStats = getLastMonthData(visitStats);
+  const aggregateStats = lastMonthStats
+    .reduce((acc, curr) => {
+      return {
+        total_visitors: acc.total_visitors + curr.unique_visitors,
+        avg_bounce_rate: acc.avg_bounce_rate +
+          curr.bounce_rate / lastMonthStats.length,
+        avg_session_duration: acc.avg_session_duration +
+          curr.avg_session_duration / lastMonthStats.length,
+      };
+    }, { total_visitors: 0, avg_bounce_rate: 0, avg_session_duration: 0 });
 
   return (
     <InlineGrid columns={{ md: 3 }} gap="400">

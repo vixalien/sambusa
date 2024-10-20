@@ -1,0 +1,5 @@
+- tests
+- documentation
+- add simple authentication
+- client-side caching with SWR
+- ask the GPT for more ideas
