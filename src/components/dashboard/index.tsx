@@ -2,6 +2,8 @@ import { BlockStack, Card, InlineGrid, Text } from "@shopify/polaris";
 
 import visitStats from "~/data/visit_stats2.json";
 
+import { prettyNumber } from "~/utilities/number";
+
 export function Dashboard() {
   const aggregateStats = visitStats.reduce((acc, curr) => {
     return {
@@ -14,7 +16,7 @@ export function Dashboard() {
   }, { total_visitors: 0, avg_bounce_rate: 0, avg_session_duration: 0 });
 
   return (
-    <InlineGrid columns={{md: 3}} gap="400">
+    <InlineGrid columns={{ md: 3 }} gap="400">
       <MetricCard
         title="Total Visitors"
         value={aggregateStats.total_visitors}
@@ -49,7 +51,7 @@ function MetricCard({ title, value, units, spaceUnits }: MetricProps) {
           {title}
         </Text>
         <Text as="span" variant="heading2xl">
-          {formatter.format(value)}
+          {prettyNumber(value)}
           {spaceUnits ? " " : ""}
           {units ? units : ""}
         </Text>
@@ -57,5 +59,3 @@ function MetricCard({ title, value, units, spaceUnits }: MetricProps) {
     </Card>
   );
 }
-
-const formatter = new Intl.NumberFormat("en-UK");
