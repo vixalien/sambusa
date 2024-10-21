@@ -15,19 +15,23 @@ const customers = customersAll.slice(0, 100);
 export default function Home() {
   return (
     <Page title="Customers">
-      <SimpleIndexTableExample />
+      <CustomersTable />
     </Page>
   );
 }
 
-function SimpleIndexTableExample() {
+function CustomersTable() {
   const resourceName = {
     singular: "customer",
     plural: "customers",
   };
 
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
-    useIndexResourceState(customers);
+    useIndexResourceState(customers, {
+      resourceIDResolver(resource) {
+        return resource.id.toString();
+      },
+    });
 
   const rowMarkup = customers.map(
     (
@@ -70,13 +74,13 @@ function SimpleIndexTableExample() {
       <Card padding="0">
         <IndexTable
           resourceName={resourceName}
-          itemCount={10}
+          itemCount={customers.length}
           selectedItemsCount={allResourcesSelected
             ? "All"
             : selectedResources.length}
           onSelectionChange={handleSelectionChange}
           headings={[
-            { title: "ID" },
+            { title: "ID", alignment: "end" },
             { title: "Name" },
             { title: "Email" },
             { title: "Signup Date", alignment: "end" },
