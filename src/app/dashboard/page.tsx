@@ -1,9 +1,12 @@
 import { Metadata } from "next";
 
 import { DashboardPage } from "./dashboard";
+import { getVisitStats } from "~/api/visit_stats";
 
-export default function Home() {
-  return <DashboardPage />;
+export default async function Home() {
+  const visitStats = await getVisitStats();
+
+  return <DashboardPage visitStats={visitStats} />;
 }
 
 export const metadata: Metadata = {

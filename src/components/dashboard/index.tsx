@@ -1,11 +1,10 @@
 import { BlockStack, Card, InlineGrid, Text } from "@shopify/polaris";
 
+import { VisitStat } from "~/api/visit_stats";
 import { getLastMonthData } from "~/utilities/date";
 import { prettyNumber } from "~/utilities/format";
 
-import visitStats from "~/data/visit_stats2.json";
-
-export function Dashboard() {
+export function Dashboard({ visitStats }: { visitStats: VisitStat[] }) {
   const lastMonthStats = getLastMonthData(visitStats);
   const aggregateStats = lastMonthStats
     .reduce((acc, curr) => {

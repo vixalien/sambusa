@@ -1,18 +1,20 @@
 import { Bleed, BlockStack, Card, Text } from "@shopify/polaris";
 import { Color, DataSeries, LineChart } from "@shopify/polaris-viz";
 
+import { VisitStat } from "~/api/visit_stats";
 import { getLastMonthData } from "~/utilities/date";
 import { prettyDate, prettyString } from "~/utilities/format";
-
-import visitStats from "~/data/visit_stats2.json";
 
 export interface VisitGraphProps {
   metric: "unique_visitors" | "page_views";
   label: string;
   color?: Color;
+  visitStats: VisitStat[];
 }
 
-export function VisitGraph({ metric, label, color }: VisitGraphProps) {
+export function VisitGraph(
+  { metric, label, color, visitStats }: VisitGraphProps,
+) {
   const data = getLastMonthData(visitStats)
     // now we convert the above data into a format understandable by the
     // `LineChart` component

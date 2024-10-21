@@ -1,12 +1,11 @@
 import { isAfter, isBefore, subDays } from "date-fns";
-
-import visitStats from "~/data/visit_stats2.json";
+import { VisitStat } from "~/api/visit_stats";
 
 /**
  * This function gets the data for the last 30 days
  * @param stats
  */
-export function getLastMonthData(stats: typeof visitStats) {
+export function getLastMonthData(stats: VisitStat[]) {
   const today = new Date();
 
   return stats.filter((stat) => {

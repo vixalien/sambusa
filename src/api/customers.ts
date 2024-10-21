@@ -1,5 +1,7 @@
 "use server";
 
+import { getEndpointURL } from "./base";
+
 export type Customer = {
   id: number;
   name: string;
@@ -21,6 +23,16 @@ export interface CustomersResult {
   skip: number;
 }
 
+/**
+ * Fetch a list of customers from the Mockaroo API
+ */
+async function fetchCustomers(): Promise<Customer[]> {
+  const data = await fetch(getEndpointURL("customers"), {
+    cache: "force-cache",
+  });
+  return data.json();
+}
+
 export async function getCustomers(
   { page = 0, search }: GetCustomersProps = {},
 ): Promise<CustomersResult> {
@@ -28,7 +40,7 @@ export async function getCustomers(
   page = Math.max(page, 1);
   const skip = (page - 1) * LIMIT;
 
-  const all_customers = (await import("~/data/customers.json")).default;
+  const all_customers = await fetchCustomers();
   const filtered_customers = filterCustomers(all_customers, search);
 
   return {
@@ -56,7 +68,7 @@ const LIMIT = 100;
 export async function getCustomer(id: number): Promise<Customer | null> {
   if (isNaN(id)) return null;
 
-  const all_customers = (await import("~/data/customers.json")).default;
+  const all_customers = await fetchCustomers();
 
   return all_customers.find((customer) => customer.id === id) || null;
 }
