@@ -24,11 +24,18 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 result.
 
+To run the tests, run
+
+```bash
+npm run test
+```
+
 ## Tech stack
 
 - **[Next.js 14 (App Router)][next]** for the full-stack React framework
 - **[Shopify Polaris][polaris]** as the UI component library
 - **[Mockaroo][mockaroo]** for sample data (backend)
+- **[Vitest][vitest]** for testing
 
 ## Mockaroo
 
@@ -44,5 +51,6 @@ root of this repository.
 [next]: https://nextjs.org/
 [polaris]: https://polaris.shopify.com/
 [mockaroo]: https://mockaroo.com/
+[vitest]: https://vitest.dev
 [mock-customers]: https://mockaroo.com/68d94670
 [mock-visit-stats]: https://mockaroo.com/f1daff90
