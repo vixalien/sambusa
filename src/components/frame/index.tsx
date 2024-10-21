@@ -17,8 +17,8 @@ export function AppFrame({ children }: { children: ReactNode }) {
       <Frame
         topBar={<AppTopBar onNavigationToggle={toggleNavigation} />}
         logo={{
-          // topBarSource:
-          //   "https://cdn.shopify.com/s/files/1/2376/3301/files/Shopify_Secondary_Inverted.png",
+          topBarSource:
+            "/images/android-chrome-192x192.png",
           width: 86,
           url: "/",
           accessibilityLabel: "Sambusa",
