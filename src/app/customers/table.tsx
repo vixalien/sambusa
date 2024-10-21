@@ -4,6 +4,7 @@ import {
   Card,
   FooterHelp,
   IndexTable,
+  Link,
   Page,
   PaginationProps,
   Text,
@@ -91,9 +92,14 @@ function CustomerRow(
         </Text>
       </IndexTable.Cell>
       <IndexTable.Cell>
-        <Text variant="bodyMd" fontWeight="bold" as="span">
-          {name}
-        </Text>
+        <Link
+          dataPrimaryLink
+          url={`/customers/${id}`}
+        >
+          <Text variant="bodyMd" fontWeight="bold" as="span">
+            {name}
+          </Text>
+        </Link>
       </IndexTable.Cell>
       <IndexTable.Cell>{email}</IndexTable.Cell>
       <IndexTable.Cell>
