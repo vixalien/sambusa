@@ -6,8 +6,11 @@ import { getCustomers } from "~/api/customers";
 import { CustomersTable } from "./table";
 
 export default async function Home() {
-  const page = Number(searchParams().get("page")) || 0;
-  const props = await getCustomers({ page });
+  const params = searchParams()
+  const page = Number(params.get("page")) || 0;
+  const search = params.get("search") ?? undefined;
+
+  const props = await getCustomers({ page, search });
 
   return <CustomersTable {...props} />;
 }

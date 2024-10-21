@@ -8,8 +8,9 @@ export type Customer = {
   last_activity: string;
 };
 
-export interface PagePaginationProps {
+export interface GetCustomersProps {
   page?: number;
+  search?: string;
 }
 
 export interface CustomersResult {
@@ -21,18 +22,33 @@ export interface CustomersResult {
 }
 
 export async function getCustomers(
-  { page = 0 }: PagePaginationProps = {},
+  { page = 0, search }: GetCustomersProps = {},
 ): Promise<CustomersResult> {
+  // page can only start from 1
+  page = Math.max(page, 1);
+  const skip = (page - 1) * LIMIT;
+
   const all_customers = (await import("~/data/customers.json")).default;
-  const skip = Math.max(page - 1, 0) * LIMIT;
+  const filtered_customers = filterCustomers(all_customers, search);
 
   return {
-    customers: all_customers.slice(skip, skip + LIMIT),
+    customers: filtered_customers.slice(skip, skip + LIMIT),
     page,
-    total: all_customers.length,
+    total: filtered_customers.length,
     limit: LIMIT,
     skip,
   };
+}
+
+function filterCustomers(customers: Customer[], search?: string) {
+  if (!search) return customers;
+
+  return customers.filter((customer) => {
+    // match name
+    return customer.name.toLowerCase().includes(search.toLowerCase()) ||
+      // match email
+      customer.email.toLowerCase().includes(search.toLowerCase());
+  });
 }
 
 const LIMIT = 100;

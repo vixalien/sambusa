@@ -4,14 +4,15 @@ import {
   Card,
   FooterHelp,
   IndexTable,
-  Link,
   Page,
-  PaginationProps,
-  Text,
   useIndexResourceState,
 } from "@shopify/polaris";
 
-import { Customer, CustomersResult } from "~/api/customers";
+import { CustomersResult } from "~/api/customers";
+
+import { usePaginationProps } from "./pagination";
+import { CustomersIndexFilters } from "./filters";
+import { CustomerRow } from "./row";
 
 export function CustomersTable(
   { customers, ...paginationProps }: CustomersResult,
@@ -33,6 +34,7 @@ export function CustomersTable(
   return (
     <Page title="Customers">
       <Card padding="0">
+        <CustomersIndexFilters />
         <IndexTable
           resourceName={resourceName}
           itemCount={customers.length}
@@ -65,69 +67,4 @@ export function CustomersTable(
       <FooterHelp />
     </Page>
   );
-}
-
-export interface CustomerRowProps {
-  customer: Customer;
-  index: number;
-  selected: boolean;
-}
-
-function CustomerRow(
-  {
-    customer: { id, email, last_activity, name, signup_date },
-    selected,
-    index,
-  }: CustomerRowProps,
-) {
-  return (
-    <IndexTable.Row
-      id={id.toString()}
-      selected={selected}
-      position={index}
-    >
-      <IndexTable.Cell>
-        <Text as="span" alignment="end" numeric>
-          {id}
-        </Text>
-      </IndexTable.Cell>
-      <IndexTable.Cell>
-        <Link
-          dataPrimaryLink
-          url={`/customers/${id}`}
-        >
-          <Text variant="bodyMd" fontWeight="bold" as="span">
-            {name}
-          </Text>
-        </Link>
-      </IndexTable.Cell>
-      <IndexTable.Cell>{email}</IndexTable.Cell>
-      <IndexTable.Cell>
-        <Text as="span" alignment="end" numeric>
-          {signup_date}
-        </Text>
-      </IndexTable.Cell>
-      <IndexTable.Cell>
-        <Text as="span" alignment="end" numeric>
-          {last_activity}
-        </Text>
-      </IndexTable.Cell>
-    </IndexTable.Row>
-  );
-}
-
-function usePaginationProps(
-  { limit, page, total, skip, customers: { length } }: CustomersResult,
-): PaginationProps {
-  // calculate the next & previous pages
-  const previousPage = Math.max(page - 1, 0);
-  const nextPage = page + 1;
-
-  return {
-    label: `${skip + 1}-${skip + length} of ${total} customers`,
-    hasPrevious: page > 1,
-    hasNext: skip + limit < total,
-    previousURL: `?page=${previousPage}`,
-    nextURL: `?page=${nextPage}`,
-  };
 }
