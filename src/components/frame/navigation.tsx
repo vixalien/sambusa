@@ -1,7 +1,7 @@
 import { usePathname } from "next/navigation";
 
 import { Navigation } from "@shopify/polaris";
-import { HomeIcon } from "@shopify/polaris-icons";
+import { DataTableIcon, HomeIcon } from "@shopify/polaris-icons";
 
 export function AppNavigation() {
   const location = usePathname();
@@ -17,9 +17,9 @@ export function AppNavigation() {
             exactMatch: true,
           },
           {
-            url: "/dashboard",
-            label: "Dashboard2",
-            icon: HomeIcon,
+            url: "/customers",
+            label: "Customers",
+            icon: DataTableIcon,
           },
         ]}
       />
