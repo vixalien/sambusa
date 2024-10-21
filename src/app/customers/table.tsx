@@ -10,17 +10,10 @@ import {
   useIndexResourceState,
 } from "@shopify/polaris";
 
-import { Customer } from "~/api/customers";
-
-export interface CustomersTableProps {
-  customers: Customer[];
-  total: number;
-  page: number;
-  limit: number;
-}
+import { Customer, CustomersResult } from "~/api/customers";
 
 export function CustomersTable(
-  { customers, ...paginationProps }: CustomersTableProps,
+  { customers, ...paginationProps }: CustomersResult,
 ) {
   const pagination = usePaginationProps({ customers, ...paginationProps });
 
@@ -73,17 +66,6 @@ export function CustomersTable(
   );
 }
 
-function usePaginationProps(
-  { limit, page, total, customers: { length } }: CustomersTableProps,
-): PaginationProps {
-  const skip = page * limit;
-  return {
-    label: `${skip + 1}-${(page + 1) * limit} of ${total} customers`,
-    hasPrevious: skip != 0,
-    hasNext: length * page <= total,
-  };
-}
-
 export interface CustomerRowProps {
   customer: Customer;
   index: number;
@@ -126,4 +108,20 @@ function CustomerRow(
       </IndexTable.Cell>
     </IndexTable.Row>
   );
+}
+
+function usePaginationProps(
+  { limit, page, total, skip, customers: { length } }: CustomersResult,
+): PaginationProps {
+  // calculate the next & previous pages
+  const previousPage = Math.max(page - 1, 0);
+  const nextPage = page + 1;
+
+  return {
+    label: `${skip + 1}-${skip + length} of ${total} customers`,
+    hasPrevious: page > 1,
+    hasNext: skip + limit < total,
+    previousURL: `?page=${previousPage}`,
+    nextURL: `?page=${nextPage}`,
+  };
 }
